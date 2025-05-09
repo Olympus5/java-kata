@@ -3,6 +3,8 @@ package fr.olympus5.bank;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class InMemoryTransactionRepositoryTest {
@@ -19,6 +21,6 @@ class InMemoryTransactionRepositoryTest {
 
         transactionRepository.save(transaction);
 
-        assertEquals(transaction, transactionRepository.findAll().get(0));
+        assertEquals(List.of(transaction), transactionRepository.findAll());
     }
 }
