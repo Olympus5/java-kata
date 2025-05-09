@@ -36,6 +36,4 @@ public class BankAccountImpl implements BankAccount {
         }
     }
 
-    public record Transaction(String date, int amount, int balance) {
-    }
 }
