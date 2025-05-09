@@ -21,6 +21,11 @@ class InMemoryTransactionRepositoryTest {
 
         transactionRepository.save(transaction);
 
-        assertEquals(List.of(transaction), transactionRepository.findAll());
+        assertIterableEquals(List.of(transaction), transactionRepository.findAll());
+    }
+
+    @Test
+    void noSave() {
+        assertIterableEquals(List.of(), transactionRepository.findAll());
     }
 }
