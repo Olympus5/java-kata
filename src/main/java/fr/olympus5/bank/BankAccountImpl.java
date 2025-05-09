@@ -26,8 +26,8 @@ public class BankAccountImpl implements BankAccount {
     @Override
     public void printStatement() {
         try {
-            statementWriter.write("Date       || Amount || Balance");
-            if(!transactionRepository.findAll().isEmpty()) statementWriter.newLine();
+            statementWriter.write("Date || Amount || Balance");
+            statementWriter.newLine();
             final String rows = transactionRepository.findAll().stream()
                     .map(tx -> String.format("%s || %s || %s%n", tx.date(), tx.amount(), tx.balance()))
                     .reduce(String::concat).orElse("");

@@ -23,7 +23,7 @@ public class BankAccountImplTest {
     void noBankOperation() {
         bankAccount.printStatement();
 
-        assertEquals("Date       || Amount || Balance", out.toString());
+        assertEquals("Date || Amount || Balance" + System.lineSeparator(), out.toString());
     }
 
     @Test
@@ -32,7 +32,7 @@ public class BankAccountImplTest {
         bankAccount.printStatement();
 
         assertEquals("""
-                Date       || Amount || Balance
+                Date || Amount || Balance
                 2012-01-10 || 1000 || 1000
                 """, out.toString());
     }
