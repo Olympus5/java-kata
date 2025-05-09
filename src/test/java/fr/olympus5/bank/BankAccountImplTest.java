@@ -1,5 +1,6 @@
 package fr.olympus5.bank;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
@@ -9,12 +10,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class BankAccountImplTest {
     private BankAccount bankAccount;
+    private StringWriter out;
+
+    @BeforeEach
+    void setUp() {
+        out = new StringWriter();
+        bankAccount = new BankAccountImpl(new BufferedWriter(out));
+    }
 
     @Test
     void noBankOperation() {
-        final StringWriter out = new StringWriter();
-        this.bankAccount = new BankAccountImpl(new BufferedWriter(out));
-
         bankAccount.printStatement();
 
         assertEquals("Date       || Amount || Balance", out.toString());
@@ -22,9 +27,6 @@ public class BankAccountImplTest {
 
     @Test
     void deposit() {
-        final StringWriter out = new StringWriter();
-        this.bankAccount = new BankAccountImpl(new BufferedWriter(out));
-
         bankAccount.deposit(1000);
         bankAccount.printStatement();
 
