@@ -7,7 +7,7 @@ public class BankAccountImpl implements BankAccount {
     private final BufferedWriter statementWriter;
     private Transaction transaction = null;
 
-    public BankAccountImpl(final BufferedWriter statementWriter) {
+    public BankAccountImpl(final BufferedWriter statementWriter, TransactionRepository transactionRepository) {
         this.statementWriter = statementWriter;
     }
 
