@@ -16,7 +16,7 @@ public class BankAccountImplTest {
     void setUp() {
         out = new StringWriter();
         TransactionRepository transactionRepository = new InMemoryTransactionRepository();
-        bankAccount = new BankAccountImpl(new BufferedWriter(out), transactionRepository);
+        bankAccount = new BankAccountImpl(transactionRepository, new BufferedWriter(out));
     }
 
     @Test

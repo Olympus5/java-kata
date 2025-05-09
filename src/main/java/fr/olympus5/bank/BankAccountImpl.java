@@ -6,9 +6,8 @@ import java.io.IOException;
 public class BankAccountImpl implements BankAccount {
     private final TransactionRepository transactionRepository;
     private final BufferedWriter statementWriter;
-    private Transaction transaction = null;
 
-    public BankAccountImpl(final BufferedWriter statementWriter, final TransactionRepository transactionRepository) {
+    public BankAccountImpl(final TransactionRepository transactionRepository, final BufferedWriter statementWriter) {
         this.transactionRepository = transactionRepository;
         this.statementWriter = statementWriter;
     }
