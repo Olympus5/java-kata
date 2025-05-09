@@ -14,7 +14,7 @@ public class BankAccountImpl implements BankAccount {
 
     @Override
     public void deposit(final int amount) {
-        transactionRepository.save(new Transaction("2012-01-10", amount, amount));
+        transactionRepository.save(new Transaction("2012-01-10", amount));
     }
 
     @Override
@@ -28,7 +28,7 @@ public class BankAccountImpl implements BankAccount {
             statementWriter.write("Date || Amount || Balance");
             statementWriter.newLine();
             final String rows = transactionRepository.findAll().stream()
-                    .map(tx -> String.format("%s || %s || %s%n", tx.date(), tx.amount(), tx.balance()))
+                    .map(tx -> String.format("%s || %s || %s%n", tx.date(), tx.amount(), tx.amount()))
                     .reduce(String::concat).orElse("");
             statementWriter.write(rows);
             statementWriter.flush();

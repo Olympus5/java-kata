@@ -17,7 +17,7 @@ class InMemoryTransactionRepositoryTest {
 
     @Test
     void save() {
-        final Transaction transaction = new Transaction("2012-01-10", 1000, 500);
+        final Transaction transaction = new Transaction("2012-01-10", 1000);
 
         transactionRepository.save(transaction);
 

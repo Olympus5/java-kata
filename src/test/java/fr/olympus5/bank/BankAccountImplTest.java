@@ -29,6 +29,7 @@ public class BankAccountImplTest {
     @Test
     void deposit() {
         bankAccount.deposit(1000);
+
         bankAccount.printStatement();
 
         assertEquals("""
