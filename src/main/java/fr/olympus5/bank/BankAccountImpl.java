@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class BankAccountImpl implements BankAccount {
     private final TransactionFactory transactionFactory;
@@ -32,9 +33,14 @@ public class BankAccountImpl implements BankAccount {
             statementWriter.write("Date || Amount || Balance");
             statementWriter.newLine();
 
+            AtomicReference<Integer> runningBalance = new AtomicReference<>(0);
+
             final String rows = transactionRepository.findAll().stream()
-                    .sorted(Comparator.comparing(Transaction::date).reversed())
-                    .map(tx -> String.format("%s || %s || %s%n", tx.date(), tx.amount(), tx.amount()))
+                    .map(tx -> {
+                        final Integer updatedBalance = runningBalance.updateAndGet(b -> b + tx.amount());
+                        return String.format("%s || %s || %s%n", tx.date(), tx.amount(), updatedBalance);
+                    })
+                    .sorted(Comparator.reverseOrder())
                     .reduce(String::concat).orElse("");
             statementWriter.write(rows);
 

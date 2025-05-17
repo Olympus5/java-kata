@@ -58,7 +58,7 @@ class BankAccountImplTest {
 
         assertEquals("""
                 Date || Amount || Balance
-                2012-01-11 || 1000 || 1000
+                2012-01-11 || 1000 || 2000
                 2012-01-10 || 1000 || 1000
                 """, out.toString());
     }
