@@ -24,7 +24,7 @@ class BankAccountImplTest {
         bankAccount = new BankAccountImpl(new TransactionFactory(
                 clock),
                 new InMemoryTransactionRepository(),
-                new BufferedWriter(out));
+                new DefaultStatementPrinter(new BufferedWriter(out)));
     }
 
     @Test
