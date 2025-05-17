@@ -33,7 +33,7 @@ public class DefaultStatementPrinter implements StatementPrinter {
 
             statementWriter.flush();
         } catch (IOException e) {
-            // TODO
+            throw new StatementPrintException(e);
         }
     }
 }
