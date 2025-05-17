@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BankAccountImplTest {
-    private MutableClock clock; // TODO MutableClock factory helper ?
+    private MutableClock clock;
     private BankAccount bankAccount;
     private StringWriter out;
 
@@ -22,7 +22,7 @@ class BankAccountImplTest {
                 LocalDate.of(2012, 1, 10).atStartOfDay().toInstant(ZoneOffset.UTC),
                 ZoneOffset.UTC);
         out = new StringWriter();
-        bankAccount = new BankAccountImpl(new TransactionFactory(
+        bankAccount = new BankAccountImpl(new DefaultTransactionFactory(
                 clock),
                 new InMemoryTransactionRepository(),
                 new DefaultStatementPrinter(new BufferedWriter(out)));
