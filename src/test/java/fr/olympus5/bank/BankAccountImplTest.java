@@ -45,6 +45,13 @@ class BankAccountImplTest {
     }
 
     @Test
+    void negativeWithdraw() {
+        final Exception actual = assertThrows(IllegalArgumentException.class, () -> bankAccount.withdraw(-1000));
+
+        assertEquals("Amount must be greater than 0.", actual.getMessage());
+    }
+
+    @Test
     void deposit() {
         bankAccount.deposit(1000);
 
