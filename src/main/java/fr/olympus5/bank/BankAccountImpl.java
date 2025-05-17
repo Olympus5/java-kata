@@ -2,6 +2,7 @@ package fr.olympus5.bank;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.util.List;
 
 public class BankAccountImpl implements BankAccount {
     private final TransactionRepository transactionRepository;
@@ -27,10 +28,13 @@ public class BankAccountImpl implements BankAccount {
         try {
             statementWriter.write("Date || Amount || Balance");
             statementWriter.newLine();
-            final String rows = transactionRepository.findAll().stream()
-                    .map(tx -> String.format("%s || %s || %s%n", tx.date(), tx.amount(), tx.amount()))
-                    .reduce(String::concat).orElse("");
-            statementWriter.write(rows);
+            final List<Transaction> transactions = transactionRepository.findAll();
+
+            if(!transactions.isEmpty()) {
+                final Transaction firstTransaction = transactions.get(0);
+                statementWriter.write(String.format("%s || %s || %s%n", firstTransaction.date(), firstTransaction.amount(), firstTransaction.amount()));
+            }
+
             statementWriter.flush();
         } catch (IOException e) {
             // TODO
