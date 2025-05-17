@@ -5,17 +5,19 @@ import java.io.IOException;
 import java.util.List;
 
 public class BankAccountImpl implements BankAccount {
+    private final TransactionFactory transactionFactory;
     private final TransactionRepository transactionRepository;
     private final BufferedWriter statementWriter;
 
-    public BankAccountImpl(final TransactionRepository transactionRepository, final BufferedWriter statementWriter) {
+    public BankAccountImpl(final TransactionFactory transactionFactory, final TransactionRepository transactionRepository, final BufferedWriter statementWriter) {
+        this.transactionFactory = transactionFactory;
         this.transactionRepository = transactionRepository;
         this.statementWriter = statementWriter;
     }
 
     @Override
     public void deposit(final int amount) {
-        transactionRepository.save(new TransactionFactory().newTransaction(amount));
+        transactionRepository.save(transactionFactory.newTransaction(amount));
     }
 
     @Override
@@ -30,7 +32,7 @@ public class BankAccountImpl implements BankAccount {
             statementWriter.newLine();
             final List<Transaction> transactions = transactionRepository.findAll();
 
-            if(!transactions.isEmpty()) {
+            if (!transactions.isEmpty()) {
                 final Transaction firstTransaction = transactions.get(0);
                 statementWriter.write(String.format("%s || %s || %s%n", firstTransaction.date(), firstTransaction.amount(), firstTransaction.amount()));
             }

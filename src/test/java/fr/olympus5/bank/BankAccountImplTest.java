@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
 import java.io.StringWriter;
+import java.time.Clock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -16,7 +17,7 @@ class BankAccountImplTest {
     void setUp() {
         out = new StringWriter();
         TransactionRepository transactionRepository = new InMemoryTransactionRepository();
-        bankAccount = new BankAccountImpl(transactionRepository, new BufferedWriter(out));
+        bankAccount = new BankAccountImpl(new TransactionFactory(Clock.systemUTC()), transactionRepository, new BufferedWriter(out));
     }
 
     @Test
