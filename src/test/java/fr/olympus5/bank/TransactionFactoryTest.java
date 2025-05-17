@@ -2,7 +2,11 @@ package fr.olympus5.bank;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.threeten.extra.MutableClock;
+
+import java.time.Clock;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -12,7 +16,10 @@ class TransactionFactoryTest {
 
     @BeforeEach
     void setUp() {
-        transactionFactory = new TransactionFactory(MutableClock.epochUTC());
+        final Clock clock = Clock.fixed(
+                LocalDate.of(2012, 1, 10).atStartOfDay().toInstant(ZoneOffset.UTC),
+                ZoneId.systemDefault());
+        transactionFactory = new TransactionFactory(clock);
     }
 
     @Test

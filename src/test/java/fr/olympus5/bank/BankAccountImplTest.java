@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
 import java.io.StringWriter;
-import java.time.Clock;
+import java.time.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -15,9 +15,14 @@ class BankAccountImplTest {
 
     @BeforeEach
     void setUp() {
+        final Clock clock = Clock.fixed(
+                LocalDate.of(2012, 1, 10).atStartOfDay().toInstant(ZoneOffset.UTC),
+                ZoneId.systemDefault());
         out = new StringWriter();
-        TransactionRepository transactionRepository = new InMemoryTransactionRepository();
-        bankAccount = new BankAccountImpl(new TransactionFactory(Clock.systemUTC()), transactionRepository, new BufferedWriter(out));
+        bankAccount = new BankAccountImpl(new TransactionFactory(
+                clock),
+                new InMemoryTransactionRepository(),
+                new BufferedWriter(out));
     }
 
     @Test
