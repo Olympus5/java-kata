@@ -15,17 +15,20 @@ public class BankAccountImpl implements BankAccount {
 
     @Override
     public void deposit(final int amount) {
+        if (amount <= 0) {
+            throw new IllegalArgumentException("Amount must be greater than 0.");
+        }
+
         transactionRepository.save(transactionFactory.newTransaction(amount));
     }
 
     @Override
     public void withdraw(int amount) {
-        deposit(-amount);
+        transactionRepository.save(transactionFactory.newTransaction(-amount));
     }
 
     @Override
     public void printStatement() {
         statementPrinter.print(transactionRepository.findAll());
     }
-
 }

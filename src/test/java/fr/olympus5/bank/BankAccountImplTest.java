@@ -9,6 +9,7 @@ import java.io.StringWriter;
 import java.time.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class BankAccountImplTest {
     private MutableClock clock; // TODO MutableClock factory helper ?
@@ -34,6 +35,13 @@ class BankAccountImplTest {
         assertEquals("""
                 Date || Amount || Balance
                 """, out.toString());
+    }
+
+    @Test
+    void negativeDeposit() {
+        final Exception actual = assertThrows(IllegalArgumentException.class, () -> bankAccount.deposit(-1000));
+
+        assertEquals("Amount must be greater than 0.", actual.getMessage());
     }
 
     @Test
