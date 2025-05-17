@@ -14,7 +14,7 @@ public class BankAccountImpl implements BankAccount {
 
     @Override
     public void deposit(final int amount) {
-        transactionRepository.save(new Transaction("2012-01-10", amount));
+        transactionRepository.save(new TransactionFactory().newTransaction(amount));
     }
 
     @Override

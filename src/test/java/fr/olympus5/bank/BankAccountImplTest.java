@@ -8,7 +8,7 @@ import java.io.StringWriter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class BankAccountImplTest {
+class BankAccountImplTest {
     private BankAccount bankAccount;
     private StringWriter out;
 
