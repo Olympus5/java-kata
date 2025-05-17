@@ -2,6 +2,7 @@ package fr.olympus5.bank;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.threeten.extra.MutableClock;
 
 import java.io.BufferedWriter;
 import java.io.StringWriter;
@@ -15,9 +16,9 @@ class BankAccountImplTest {
 
     @BeforeEach
     void setUp() {
-        final Clock clock = Clock.fixed(
+        final Clock clock = MutableClock.of(
                 LocalDate.of(2012, 1, 10).atStartOfDay().toInstant(ZoneOffset.UTC),
-                ZoneId.systemDefault());
+                ZoneOffset.UTC);
         out = new StringWriter();
         bankAccount = new BankAccountImpl(new TransactionFactory(
                 clock),

@@ -18,7 +18,7 @@ class TransactionFactoryTest {
     void setUp() {
         final Clock clock = Clock.fixed(
                 LocalDate.of(2012, 1, 10).atStartOfDay().toInstant(ZoneOffset.UTC),
-                ZoneId.systemDefault());
+                ZoneOffset.UTC);
         transactionFactory = new TransactionFactory(clock);
     }
 
