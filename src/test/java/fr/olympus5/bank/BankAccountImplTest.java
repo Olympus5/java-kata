@@ -62,4 +62,49 @@ class BankAccountImplTest {
                 2012-01-10 || 1000 || 1000
                 """, out.toString());
     }
+
+    @Test
+    void withdraw() {
+        bankAccount.withdraw(1000);
+
+        bankAccount.printStatement();
+
+        assertEquals("""
+                Date || Amount || Balance
+                2012-01-10 || -1000 || -1000
+                """, out.toString());
+    }
+
+    @Test
+    void manyWithdrawsOnDifferentDays() {
+        bankAccount.withdraw(1000);
+        clock.add(Duration.ofDays(1));
+        bankAccount.withdraw(500);
+
+        bankAccount.printStatement();
+
+        assertEquals("""
+                Date || Amount || Balance
+                2012-01-11 || -500 || -1500
+                2012-01-10 || -1000 || -1000
+                """, out.toString());
+    }
+
+    @Test
+    void manyOperationsOnDifferentDays() {
+        bankAccount.withdraw(1000);
+        clock.add(Duration.ofDays(1));
+        bankAccount.withdraw(500);
+        clock.add(Duration.ofDays(1));
+        bankAccount.deposit(1500);
+
+        bankAccount.printStatement();
+
+        assertEquals("""
+                Date || Amount || Balance
+                2012-01-12 || 1500 || 0
+                2012-01-11 || -500 || -1500
+                2012-01-10 || -1000 || -1000
+                """, out.toString());
+    }
 }

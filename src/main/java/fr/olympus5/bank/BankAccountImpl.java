@@ -24,7 +24,7 @@ public class BankAccountImpl implements BankAccount {
 
     @Override
     public void withdraw(int amount) {
-
+        deposit(-amount);
     }
 
     @Override
